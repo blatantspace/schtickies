@@ -255,7 +255,6 @@ function createWindow() {
 ipcMain.on('update-content', (event, content) => {
   const windowId = event.sender.id;
   openNotes.set(windowId, content);
-  updateSummary();
   updateNoteCount();
 });
 
@@ -297,9 +296,6 @@ ipcMain.on('update-settings', (event, updatedSettings) => {
         settings.directive = updatedSettings.directive;
     }
     store.set('settings', settings);
-    
-    // Update summary with new settings
-    updateSummary();
 });
 
 // Handle force summarize
@@ -352,7 +348,6 @@ ipcMain.on('get-settings', (event) => {
 ipcMain.on('update-directive', (event, directive) => {
     settings.directive = directive;
     store.set('settings', settings);
-    updateSummary();
 });
 
 // Update file counter

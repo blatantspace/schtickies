@@ -57,6 +57,46 @@
             padding: 20px;
             box-sizing: border-box;
             position: relative;
+            overflow-y: auto;
+        }
+
+        #summaryContent {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding-bottom: 40px; /* Space for the refresh button */
+        }
+        
+        /* Markdown-like formatting */
+        #summaryContent h1, #summaryContent h2, #summaryContent h3, 
+        #summaryContent h4, #summaryContent h5, #summaryContent h6 {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        
+        #summaryContent h1 { font-size: 1.6em; }
+        #summaryContent h2 { font-size: 1.4em; }
+        #summaryContent h3 { font-size: 1.2em; }
+        
+        #summaryContent ul, #summaryContent ol {
+            padding-left: 20px;
+            margin: 0.5em 0;
+        }
+        
+        #summaryContent li {
+            margin: 0.2em 0;
+        }
+        
+        #summaryContent p {
+            margin: 0.7em 0;
+        }
+        
+        #summaryContent strong, #summaryContent b {
+            font-weight: bold;
+        }
+        
+        #summaryContent em, #summaryContent i {
+            font-style: italic;
         }
 
         .file-counter {
@@ -84,6 +124,32 @@
         .close { background-color: #FF6B6B; }
         .minimize { background-color: #FFD93D; }
         .maximize { background-color: #6BCB77; }
+        
+        .refresh-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-family: 'DANK MONO', monospace;
+            font-size: 16px;
+            transition: all 0.2s;
+            -webkit-app-region: no-drag;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .refresh-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -98,6 +164,7 @@
         <div class="file-counter" id="fileCounter">0 notes</div>
         <div id="summaryContent">No notes to summarize yet. Start typing in your note to see a summary here.</div>
         <div id="debugSection" style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 10px; font-size: 10px; color: #666; white-space: pre-wrap;"></div>
+        <button class="refresh-button" id="refreshButton" title="Click to update summary">↻</button>
     </div>
     <script src="summary-renderer.js"></script>
 </body>

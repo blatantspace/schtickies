@@ -49,6 +49,7 @@ function setTranslate(xPos, yPos, el) {
 
 // Control updates
 const modelSelect = document.getElementById('model');
+const directivePresets = document.getElementById('directivePresets');
 const directiveInput = document.getElementById('directive');
 const connectionStatus = document.getElementById('connectionStatus');
 const minimizeBtn = document.querySelector('.minimize');
@@ -56,11 +57,32 @@ const maximizeBtn = document.querySelector('.maximize');
 const closeBtn = document.querySelector('.close');
 const fileCounter = document.getElementById('fileCounter');
 
+// Define preset directives
+const presetDirectives = {
+    custom: "",
+    tasks: "Extract all actionable tasks from these notes. Format as a prioritized list with clear next steps. Remove duplicates. Group related items. Highlight urgent items first.",
+    keypoints: "Distill these notes into a bulleted list of key points. Focus on facts, insights, and core ideas only. Use concise language. Maximum 10 points. Include only the most important information.",
+    meeting: "Structure these meeting notes into sections: 1) Key Decisions 2) Action Items (with owners if mentioned) 3) Main Discussion Points. Format as headers with brief bullet points under each. Be concise and direct.",
+    ideas: "Extract and organize creative concepts from these notes. Highlight novel ideas. Group related concepts. Suggest potential applications or extensions of each idea. Present as a structured outline.",
+    research: "Synthesize these research notes into a coherent summary. Include: key findings, methodologies mentioned, open questions, and potential next steps. Organize logically. Use clear headings. Highlight gaps in information."
+};
+
 // Initialize with saved settings
 ipcRenderer.on('load-settings', (event, settings) => {
     console.log('Loading settings:', settings);
     if (settings.directive) {
         directiveInput.value = settings.directive;
+        
+        // Check if current directive matches any preset
+        const presetEntry = Object.entries(presetDirectives).find(([key, value]) => 
+            value === settings.directive
+        );
+        
+        if (presetEntry) {
+            directivePresets.value = presetEntry[0];
+        } else {
+            directivePresets.value = 'custom';
+        }
     }
     // Store the model selection to use when models are loaded
     if (settings.model) {
@@ -147,8 +169,24 @@ modelSelect.addEventListener('change', (e) => {
     ipcRenderer.send('update-settings', { model: e.target.value });
 });
 
-// Handle directive input
+// Handle directive presets selection
+directivePresets.addEventListener('change', (e) => {
+    const selectedPreset = e.target.value;
+    const presetText = presetDirectives[selectedPreset];
+    
+    // Update the directive input with the preset text
+    directiveInput.value = presetText;
+    
+    // Save the new directive setting
+    ipcRenderer.send('update-settings', { directive: presetText });
+});
+
+// Handle directive input - update to custom when user manually edits
 directiveInput.addEventListener('input', (e) => {
+    // Set preset selector to custom when user edits the directive
+    directivePresets.value = 'custom';
+    
+    // Update the directive setting
     ipcRenderer.send('update-settings', { directive: e.target.value });
 });
 
