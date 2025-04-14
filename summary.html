@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Summary Schticky</title>
+    <style>
+        @font-face {
+            font-family: 'DANK MONO';
+            src: url('fonts/DankMono-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'DANK MONO';
+            src: url('fonts/DankMono-Italic.otf') format('opentype');
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: 'DANK MONO';
+            src: url('fonts/DankMono-Bold.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'DANK MONO', monospace;
+            background-color: #BDE0FE; /* Pastel blue */
+            color: #333;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .draggable-area {
+            -webkit-app-region: drag;
+            height: 30px;
+            background-color: rgba(189, 224, 254, 0.8);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        #summary {
+            width: 100%;
+            height: calc(100% - 30px);
+            border: none;
+            background: transparent;
+            resize: none;
+            font-family: 'DANK MONO', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            outline: none;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .file-counter {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .window-controls {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+            -webkit-app-region: no-drag;
+        }
+
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .close { background-color: #FF6B6B; }
+        .minimize { background-color: #FFD93D; }
+        .maximize { background-color: #6BCB77; }
+    </style>
+</head>
+<body>
+    <div class="draggable-area">
+        <div class="window-controls">
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+            <div class="window-control close"></div>
+        </div>
+    </div>
+    <div id="summary">
+        <div class="file-counter" id="fileCounter">0 notes</div>
+        <div id="summaryContent">No notes to summarize yet. Start typing in your note to see a summary here.</div>
+        <div id="debugSection" style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 10px; font-size: 10px; color: #666; white-space: pre-wrap;"></div>
+    </div>
+    <script src="summary-renderer.js"></script>
+</body>
+</html> 

@@ -1,0 +1,88 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 🧠 schtickies Summary — README for Cursor AI
+
+This is a local-first Electron app for Ben. it's called schtickies.
+
+Ben has ADHD. He's the visionary. You are the builder. He will not configure anything manually. You must handle it all.
+
+The goal is to build a minimal, distraction-free interface with sticky notes, automatic summarization, and a floating control panel.
+
+## ✅ Key Concepts
+
+There are 3 types of Schtickies in the app:
+
+---
+
+### 1. Notes Schtickies
+- Multiple can be open at once.
+- Each sticky is markdown-based.
+- do not style markdown yet
+- The app must persist which ones were last open.
+- They feed content into the Summary Schticky.
+- is always yellow background
+
+---
+
+### 2. Summary Schticky
+- Read-only.
+- Summarizes all open Notes Schtickies.
+- Uses the OLAMMA API to summarize content every 30 seconds.
+- User can choose the model and directive via Controls Schticky.
+- is always blue background
+
+---
+
+### 3. Controls Schticky
+- Floating window.
+- User can:
+  - Choose OLAMMA model
+  - Set the summary directive (prompt)
+- Changes affect how the Summary is generated.
+- always has a "connection" in the form of a straight
+- is always grey background
+
+---
+
+## 🎯 Tech & Behavior Requirements
+
+- Use **Electron**
+- Style everything using `DANK MONO` font as the style source.
+- Persist open notes and settings (model + directive) locally.
+- Think of the interface like a graph:
+  - Notes are nodes.
+  - Summary is the sink node.
+  - Controls act like filters.
+- Minimalist interface. No toolbars, no clutter.
+
+## 🎯 Spatial Interface Concept
+
+The interface is a physical arrangement of floating windows connected by lines:
+
+```
+    [Notes Schticky]──────┐
+    (yellow)             │
+                         │
+    [Notes Schticky]─────┼───→[Summary Schticky]
+    (yellow)             │     (blue)
+                         │
+    [Controls Schticky]──┘
+    (grey)
+```
+
+Key aspects:
+- Each schticky is a separate floating window
+- Windows can be moved freely around the screen
+- Visual lines connect related schtickies
+- Lines update in real-time as windows move
+- The arrangement creates a physical "graph" of relationships
+- No contained UI - the entire screen is the workspace
+
+#future feature ideas
+
+- connective lines between each would be a great feature
+
+--

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Controls Schticky</title>
+    <style>
+        @font-face {
+            font-family: 'DANK MONO';
+            src: url('fonts/DankMono-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'DANK MONO';
+            src: url('fonts/DankMono-Italic.otf') format('opentype');
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: 'DANK MONO';
+            src: url('fonts/DankMono-Bold.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'DANK MONO', monospace;
+            background-color: #E2E2E2; /* Pastel grey */
+            color: #333;
+            height: auto;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .draggable-area {
+            -webkit-app-region: drag;
+            height: 30px;
+            background-color: rgba(226, 226, 226, 0.8);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .controls-container {
+            padding: 20px;
+            height: auto;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 11px;
+            font-style: italic;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            font-family: 'DANK MONO', monospace;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            height: 60px;
+            resize: vertical;
+        }
+
+        .connection-status {
+            margin-top: 5px;
+            padding: 6px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 11px;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .connected { 
+            color: #298547; 
+            background-color: transparent;
+        }
+        .disconnected { 
+            color: #c93838;
+            background-color: transparent;
+        }
+        .checking { 
+            color: #ad9c27;
+            background-color: transparent;
+        }
+
+        .window-controls {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+            -webkit-app-region: no-drag;
+        }
+
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .close { background-color: #FF6B6B; }
+        .minimize { background-color: #FFD93D; }
+        .maximize { background-color: #6BCB77; }
+
+        .file-counter {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 11px;
+            color: rgba(0, 0, 0, 0.5);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="draggable-area">
+        <div class="window-controls">
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+            <div class="window-control close"></div>
+        </div>
+    </div>
+    <div class="controls-container">
+        <div class="control-group">
+            <label>Model</label>
+            <select id="model">
+                <!-- Models will be populated dynamically -->
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Summary Directive</label>
+            <textarea id="directive" placeholder="Enter your summary directive..."></textarea>
+        </div>
+        <div class="connection-status checking" id="connectionStatus">
+            Checking connection...
+        </div>
+        <div class="file-counter" id="fileCounter">0 notes</div>
+    </div>
+    <script src="controls-renderer.js"></script>
+</body>
+</html> 
