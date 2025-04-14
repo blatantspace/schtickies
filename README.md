@@ -26,7 +26,7 @@ A minimal, distraction-free Electron app for managing sticky notes with automati
 
 1. Clone the repository
 ```
-git clone https://github.com/yourusername/schtickies.git
+git clone https://github.com/blatantspace/schtickies.git
 ```
 
 2. Install dependencies
